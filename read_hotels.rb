@@ -1,18 +1,27 @@
 require 'json'
 require 'byebug'
 
-filepath = 'hotel_info_2018-12-19.json'
+class PrintJson
+  def initialize(city_name, date)
+    @city_name = city_name
+    @date = date
+  end
 
-serialized_hotels = File.read(filepath)
+  def run
+    filepath = "hotel_#{@city_name}_#{@date}.json"
+    serialized_hotels = File.read(filepath)
+    hotels = JSON.parse(serialized_hotels)
 
-hotels = JSON.parse(serialized_hotels)
-
-hotels.each do |hotel|
-  puts hotel["name"]
-  puts hotel["reviews"]
-  puts hotel["price"]
-  puts hotel["address"]
-  puts "   "
-  puts "********************"
-  puts "  "
+    hotels.each do |hotel|
+      puts hotel["name"]
+      puts hotel["reviews"]
+      puts hotel["price"]
+      puts hotel["address"]
+      puts "   "
+      puts "********************"
+      puts "  "
+    end
+  end
 end
+
+PrintJson.new("Paris", "2018-12-20").run
